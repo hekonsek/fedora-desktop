@@ -1,0 +1,44 @@
+- hosts: localhost
+  become: True
+  tasks:
+
+    ## Desktop tools
+
+    - name: Installing Vim
+      dnf:
+        name: vim
+        state: present
+
+    - name: Installing Chrome
+      dnf:
+        name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+        state: present
+
+    ## Workspace
+
+    - name: Create 'projects' directory
+      become_user: hekonsek
+      file: path=/home/hekonsek/projects state=directory
+
+    ## Containers
+
+    - name: Installing Docker
+      dnf:
+        name: docker
+        state: present
+
+    - name: Make sure Docker is running
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+        daemon_reload: yes
+     
+    - name: Create 'docker' user group
+      group:
+        name: docker
+        state: present
+
+    - name: Add user 'hekonsek' to group 'docker'
+      user: name=hekonsek groups=docker append=yes
+    
