@@ -41,4 +41,15 @@
 
     - name: Add user 'hekonsek' to group 'docker'
       user: name=hekonsek groups=docker append=yes
+
+    - name: Installing kubectl
+      dnf:
+        name: kubernetes-client
+        state: present
     
+    - name: Install Minikube
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/v0.26.1/minikube-linux-amd64
+        dest: /usr/local/bin/minikube
+        mode: 0555
+        checksum: md5:8fb2128d23cd8d1b1f28c791804f791f
