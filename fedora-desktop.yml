@@ -4,6 +4,13 @@
 
     ## Desktop tools
 
+    - name: Installing libselinux Python binding
+      dnf:
+        name: libselinux-python
+        state: present
+
+    ## Desktop tools
+
     - name: Installing Vim
       dnf:
         name: vim
@@ -13,6 +20,23 @@
       dnf:
         name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
         state: present
+
+    ## Dev tools
+
+    - name: Create 'opt' directory
+      become_user: hekonsek
+      file: path=/home/hekonsek/opt state=directory
+
+    - name: Download IntelliJ Idea
+      become_user: hekonsek
+      get_url:
+        url: https://download-cf.jetbrains.com/idea/ideaIC-2018.1.1.tar.gz
+        dest: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
+
+    - name: Install IntelliJ Idea
+      unarchive:
+        src: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
+        dest: /home/hekonsek/opt/
 
     ## Workspace
 
@@ -47,9 +71,3 @@
         name: kubernetes-client
         state: present
     
-    - name: Install Minikube
-      get_url:
-        url: https://storage.googleapis.com/minikube/releases/v0.26.1/minikube-linux-amd64
-        dest: /usr/local/bin/minikube
-        mode: 0555
-        checksum: md5:8fb2128d23cd8d1b1f28c791804f791f
