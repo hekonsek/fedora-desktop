@@ -38,6 +38,17 @@
         src: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/
 
+    - name: Download GoLand
+      become_user: hekonsek
+      get_url:
+        url: https://download.jetbrains.com/go/goland-2018.1.1.tar.gz
+        dest: /home/hekonsek/opt/goland-2018.1.1.tar.gz
+
+    - name: Install GoLand
+      unarchive:
+        src: /home/hekonsek/opt/goland-2018.1.1.tar.gz
+        dest: /home/hekonsek/opt/
+
     ## Workspace
 
     - name: Create 'projects' directory
