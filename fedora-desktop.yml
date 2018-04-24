@@ -38,6 +38,7 @@
       register: idea
 
     - name: Install IntelliJ Idea
+      become_user: hekonsek
       unarchive:
         src: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/
@@ -53,6 +54,7 @@
       register: goland
 
     - name: Install GoLand
+      become_user: hekonsek
       unarchive:
         src: /home/hekonsek/opt/goland-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/
@@ -74,6 +76,7 @@
       register: golang
 
     - name: Install GoLang
+      become_user: hekonsek
       unarchive:
         src: /home/hekonsek/opt/go1.10.1.linux-amd64.tar.gz
         dest: /home/hekonsek/projects/
