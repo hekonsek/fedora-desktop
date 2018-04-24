@@ -33,10 +33,15 @@
         url: https://download-cf.jetbrains.com/idea/ideaIC-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
 
+    - name: Checking if IntelliJ Idea is installed
+      stat: path=/home/hekonsek/opt/idea-IC-181.4445.78
+      register: idea
+
     - name: Install IntelliJ Idea
       unarchive:
         src: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/
+      when: idea.stat.exists == False
 
     - name: Download GoLand
       become_user: hekonsek
@@ -44,16 +49,42 @@
         url: https://download.jetbrains.com/go/goland-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/goland-2018.1.1.tar.gz
 
+    - stat: path=/home/hekonsek/opt/GoLand-2018.1.1
+      register: goland
+
     - name: Install GoLand
       unarchive:
         src: /home/hekonsek/opt/goland-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/
+      when: goland.stat.exists == False
 
     ## Workspace
 
     - name: Create 'projects' directory
       become_user: hekonsek
       file: path=/home/hekonsek/projects state=directory
+
+    - name: Download GoLang
+      become_user: hekonsek
+      get_url:
+        url: https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz
+        dest: /home/hekonsek/opt/
+
+    - stat: path=/home/hekonsek/projects/go
+      register: golang
+
+    - name: Install GoLang
+      unarchive:
+        src: /home/hekonsek/opt/go1.10.1.linux-amd64.tar.gz
+        dest: /home/hekonsek/projects/
+      when: golang.stat.exists == False
+
+    - name: Add GoLang to PATH
+      lineinfile:
+        path: /home/hekonsek/.bashrc
+        regexp: '^export PATH=\$PATH:/home/hekonsek/projects/go/bin$'
+        line: 'export PATH=$PATH:/home/hekonsek/projects/go/bin'
+        state: present
 
     ## Containers
 
