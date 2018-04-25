@@ -2,7 +2,7 @@
   become: True
   tasks:
 
-    ## Desktop tools
+    ## Ansible dependencies
 
     - name: Installing libselinux Python binding
       dnf:
@@ -19,6 +19,11 @@
     - name: Installing Chrome
       dnf:
         name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+        state: present
+
+    - name: Installing Skype
+      dnf:
+        name: https://repo.skype.com/latest/skypeforlinux-64.rpm
         state: present
 
     ## Dev tools
