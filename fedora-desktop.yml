@@ -32,6 +32,18 @@
       become_user: hekonsek
       file: path=/home/hekonsek/opt state=directory
 
+    ## Java
+
+    - name: Installing JDK
+      dnf:
+        name: java-1.8.0-openjdk-devel
+        state: present
+
+    - name: Installing Maven
+      dnf:
+        name: maven
+        state: present
+
     - name: Download IntelliJ Idea
       become_user: hekonsek
       get_url:
@@ -48,6 +60,8 @@
         src: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
         dest: /home/hekonsek/opt/
       when: idea.stat.exists == False
+
+    ## GoLang
 
     - name: Download GoLand
       become_user: hekonsek
