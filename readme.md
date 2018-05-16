@@ -1,6 +1,6 @@
 # Henry's Fedora desktop workstation
 
-This is Ansible playbook I use to configure my Fedora 27 development workstation. I'm working on containerized Java and 
+This is Ansible playbook I use to configure my Fedora 28 development workstation. I'm working on containerized Java and 
 GoLang applications for cloud environment.
 
 ## Installation
