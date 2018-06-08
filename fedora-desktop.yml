@@ -74,17 +74,17 @@
     - name: Download IntelliJ Idea
       become_user: hekonsek
       get_url:
-        url: https://download-cf.jetbrains.com/idea/ideaIC-2018.1.1.tar.gz
-        dest: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
+        url: https://download-cf.jetbrains.com/idea/ideaIC-2018.1.4.tar.gz
+        dest: /home/hekonsek/opt/ideaIC-2018.1.4.tar.gz
 
     - name: Checking if IntelliJ Idea is installed
-      stat: path=/home/hekonsek/opt/idea-IC-181.4445.78
+      stat: path=/home/hekonsek/opt/idea-IC-181.5087.20
       register: idea
 
     - name: Install IntelliJ Idea
       become_user: hekonsek
       unarchive:
-        src: /home/hekonsek/opt/ideaIC-2018.1.1.tar.gz
+        src: /home/hekonsek/opt/ideaIC-2018.1.4.tar.gz
         dest: /home/hekonsek/opt/
       when: idea.stat.exists == False
 
