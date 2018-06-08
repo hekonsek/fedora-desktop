@@ -29,9 +29,28 @@
         name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
         state: present
 
+    - name: Checking if Skype is installed
+      stat: path=/usr/bin/skypeforlinux
+      register: skype
+
     - name: Installing Skype
       dnf:
         name: https://repo.skype.com/latest/skypeforlinux-64.rpm
+        state: present
+      when: skype.stat.exists == False
+
+    - name: Enabling unlimited Bash history (entries)
+      lineinfile:
+        path: /home/hekonsek/.bashrc
+        regexp: '^HISTSIZE=$'
+        line: 'HISTSIZE='
+        state: present
+
+    - name: Enabling unlimited Bash history (file size)
+      lineinfile:
+        path: /home/hekonsek/.bashrc
+        regexp: '^HISTFILESIZE=$'
+        line: 'HISTFILESIZE='
         state: present
 
     ## Dev tools
